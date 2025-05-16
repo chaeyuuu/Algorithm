@@ -7,7 +7,7 @@
 을 입력으로 받았을 때 인덱스와 값을 포함하여 리턴
 
 * 인덱스와 값을 동시에 접근하고 싶을 때 사용하면 좋음
-```
+```python
 queue = deque([(index, priority) for index, priority in enumerate(priorities)])
 ```
 
@@ -24,7 +24,7 @@ queue = deque([(index, priority) for index, priority in enumerate(priorities)])
 - all(): 모두 True여야 True 반환
 
 ex)
-```
+```python
 cur = 3
 temp = [1,3,6,2]
 if any(cur<num for num in temp):
