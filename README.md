@@ -80,3 +80,18 @@ counter2 = Counter(["A", "B", "B"])
 counter1 + counter2
 >>> Counter({'A': 3, 'B': 3})
 ```
+
+
+### startswith / endswith
+: 특정 문자열로 시작하는 것, 혹은 끝나는 것 찾을 때 유용
+```python
+str = 'final exam'
+
+# startswith(특정 문자)
+result = str.startswith('final')
+print(result) # True
+
+# endswith
+result2 = str.endswith('exam')
+print(result2) # False
+```
