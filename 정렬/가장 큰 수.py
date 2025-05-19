@@ -1,16 +1,13 @@
-from itertools import permutations
 def solution(numbers):
     answer = 0
-    num_list = []
-    perm = list(permutations(numbers))
-    print(perm)
-    for p in perm:
-        temp = ''.join(map(str,p))
-        print(temp)
-        num_list.append(temp)
+    numbers = list(map(str, numbers))
     
-    num_list.sort(reverse=True)
-    answer = str(num_list[0])
-    print(answer)
+    numbers.sort(key=lambda x: x*3, reverse = True)
+    # print(numbers)
+    result = ''.join(numbers)    
+    # print(result)
     
-    return answer
+    if result[0] == '0':
+        return "0"
+    
+    return str(result)
