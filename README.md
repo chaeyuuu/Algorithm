@@ -95,3 +95,19 @@ print(result) # True
 result2 = str.endswith('exam')
 print(result2) # False
 ```
+
+### join()
+: 매개변수로 들어온 리스트에 있는 요소 하나하나를 합쳐서 하나의 문자열로 바꾸어 반환하는 함수
+
+- ```'구분자'.join(리스트)```
+
+문자열만 join할 수 있음
+```python
+str = 'final exam'
+
+# startswith(특정 문자)
+nums = [1, 2, 3] 
+print(''.join(nums)) # 불가능
+print(''.join(map(str,nums))) # 가능
+```
+
