@@ -23,3 +23,24 @@ def solution(v):
             answer.append(y)
 
     return answer
+
+def solution(v):
+    answer = []
+    x_list, y_list = [],[]
+
+    for x, y in v:
+        x_list.append(x)
+        y_list.append(y)
+    
+    print(x_list)
+    print(y_list)
+    
+    for x in x_list:
+        if x_list.count(x) == 1:
+            answer.append(x)
+        
+    for y in y_list:
+        if y_list.count(y) == 1:
+            answer.append(y)
+
+    return answer
