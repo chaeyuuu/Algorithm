@@ -3,10 +3,17 @@ def solution(n, computers):
     visited = [0] * n
     for v in range(n):
         if visited[v] == 0: # 방문 안 했으면
-            bfs(v, visited, n, computers)
+            # bfs(v, visited, n, computers)
+            dfs(v, visited, n, computers)
             answer += 1
     
     return answer
+
+def dfs(v, visited, n, computers):
+    visited[v] = 1
+    for i in range(n):
+        if computers[v][i] == 1 and visited[i] == 0 :
+            dfs(i, visited, n, computers)
     
 def bfs(v, visited, n, computers):
     # 방문했다고 처리
