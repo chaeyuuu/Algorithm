@@ -1,4 +1,4 @@
-package 기본입출력;
+package 구현;
 
 import java.util.Scanner;
 
