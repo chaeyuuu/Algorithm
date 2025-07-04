@@ -1,4 +1,4 @@
-package BEAKJOON.기본입출력;
+package 기본입출력;
 
 import java.util.Scanner;
 
