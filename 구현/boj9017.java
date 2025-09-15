@@ -22,14 +22,14 @@ public class boj9017 {
             }
 
             // 6명 이상인 팀 번호
-            Set<Integer> validTeam = new HashSet<>();
+            List<Integer> validTeam = new ArrayList<>();
             for (int teamId : teams.keySet()) {
                 if (teams.get(teamId) >= 6) {
                     validTeam.add(teamId);
                 }
             }
 
-            // 인덱스 다시 부여
+            // 6명 넘는 팀만 배열 재구성
             List<Integer> newList = new ArrayList<>();
             for (int team : players) {
                 if (validTeam.contains(team)) {
