@@ -12,13 +12,14 @@ public class boj22233 {
         int M = Integer.parseInt(st.nextToken()); // 블로그에 쓴 글
 
         Set<String> keywords = new HashSet<>(); // 메모장에 적은 키워드
-        Set<String> relateds = new HashSet<>(); // 관련된 키워드
 
         for (int i = 0; i < N; i++) {
             keywords.add(br.readLine());
         }
 
         for (int i = 0; i < M; i++) {
+            Set<String> relateds = new HashSet<>(); // 관련된 키워드
+
             // 쉼표로 구분 받아서 저장
             st = new StringTokenizer(br.readLine(), ",");
 
@@ -27,9 +28,7 @@ public class boj22233 {
                 relateds.add(relate);
             }
 
-            for (String r : relateds) {
-                keywords.remove(r);
-            }
+            keywords.removeAll(relateds);
 
             System.out.println(keywords.size());
         }
