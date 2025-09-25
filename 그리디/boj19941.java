@@ -1,4 +1,4 @@
-package 구현;
+package 그리디;
 
 import java.io.*;
 import java.util.*;
