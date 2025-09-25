@@ -17,22 +17,8 @@ public class boj18310 {
         }
 
         Arrays.sort(houses);
-        int minSum = Integer.MAX_VALUE;
-        int result = -1;
 
-        for (int i = 0; i < N; i++) {
-            int sum = 0;
-            for (int j = 0; j < N; j++) {
-                sum += Math.abs(houses[i] - houses[j]);
-            }
-
-            if (sum < minSum) {
-                minSum = sum;
-                result = houses[i];
-            }
-        }
-
-        System.out.println(result);
+        System.out.println(houses[(N - 1) / 2]);
     }
 
 }
