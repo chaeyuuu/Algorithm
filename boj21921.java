@@ -17,21 +17,19 @@ public class boj21921 {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        for (int j = 0; j < X - 1; j++) {
+        for (int j = 0; j < X; j++) {
             max += arr[j];
         }
 
-        for (int i = 0; i < arr.length - X; i++) {
-            int temp = 0;
-
-            for (int j = i; j < i + X; j++) {
-                temp += arr[j];
-
-                if (temp > max) {
-                    max = temp;
-                } else if (temp == max) {
-                    count += 1;
-                }
+        int temp = max;
+        // 슬라이딩 윈도우
+        for (int i = X; i < N; i++) {
+            temp = temp - arr[i - X] + arr[i];
+            if (temp > max) {
+                max = temp;
+                count = 1;
+            } else if (temp == max) {
+                count += 1;
             }
         }
 
