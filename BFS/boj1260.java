@@ -1,4 +1,4 @@
-package DFS.BFS;
+package BFS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,14 +37,14 @@ public class boj1260 {
             graph[v].add(u);
         }
 
-        for(int i=1; i<=N; i++){
+        for (int i = 1; i <= N; i++) {
             Collections.sort(graph[i]);
         }
 
-        dfsVisited = new boolean[N+1];
+        dfsVisited = new boolean[N + 1];
         dfs(V);
 
-        bfsVisited = new boolean[N+1];
+        bfsVisited = new boolean[N + 1];
         bfs(V);
 
         System.out.println(dfsBr);
@@ -56,9 +56,9 @@ public class boj1260 {
         dfsVisited[node] = true;
         dfsBr.append(node).append(" ");
 
-        for (int next: graph[node]){
+        for (int next : graph[node]) {
             // 방문하지 않았으면
-            if (!dfsVisited[next]){
+            if (!dfsVisited[next]) {
                 dfs(next);
             }
         }
@@ -70,12 +70,12 @@ public class boj1260 {
         queue.add(node);
         bfsVisited[node] = true;
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int cur = queue.poll();
             bfsBr.append(cur).append(" ");
 
-            for (int next: graph[cur]){
-                if (!bfsVisited[next]){
+            for (int next : graph[cur]) {
+                if (!bfsVisited[next]) {
                     bfsVisited[next] = true;
                     queue.add(next);
                 }

@@ -1,4 +1,4 @@
-package DFS.BFS;
+package BFS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +10,6 @@ public class boj11724 {
     static boolean[] visitedDfs;
     static ArrayList<Integer>[] graph;
     static int count;
-
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

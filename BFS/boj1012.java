@@ -1,4 +1,4 @@
-package DFS.BFS;
+package BFS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
+
 public class boj1012 {
 
     static int map[][];
     static boolean[][] visited;
 
-    static int dirX[] = {0, 0, -1, 1};
-    static int dirY[] = {-1, 1, 0, 0};
+    static int dirX[] = { 0, 0, -1, 1 };
+    static int dirY[] = { -1, 1, 0, 0 };
     static int M, N, K;
     static int count;
     static int nowX, nowY;
@@ -76,7 +77,7 @@ public class boj1012 {
     static void bfs(int x, int y) {
         // 큐 안에 int 배열 들어감
         Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{x, y});
+        queue.add(new int[] { x, y });
         visited[y][x] = true;
 
         while (!queue.isEmpty()) {
@@ -91,7 +92,7 @@ public class boj1012 {
                 if (nextX >= 0 && nextX < M && nextY >= 0 && nextY < N && !visited[nextY][nextX]
                         && map[nextY][nextX] == 1) {
                     visited[nextY][nextX] = true;
-                    queue.add(new int[]{nextX, nextY});
+                    queue.add(new int[] { nextX, nextY });
                 }
             }
         }

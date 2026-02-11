@@ -1,18 +1,17 @@
-package DFS.BFS;
+package BFS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-
 public class boj2667 {
 
     static int[][] map;
     static boolean[][] visited;
 
-    static int[] dirX = {1, 0, -1, 0};
-    static int[] dirY = {0, -1, 0, 1};
+    static int[] dirX = { 1, 0, -1, 0 };
+    static int[] dirY = { 0, -1, 0, 1 };
     static int N;
     static ArrayList<Integer> result;
 
@@ -35,8 +34,8 @@ public class boj2667 {
 
         for (int y = 0; y < N; y++) {
             for (int x = 0; x < N; x++) {
-                if (map[y][x] == 1 && !visited[y][x]){
-                    result.add(bfs(x,y));
+                if (map[y][x] == 1 && !visited[y][x]) {
+                    result.add(bfs(x, y));
                 }
             }
         }
@@ -44,14 +43,14 @@ public class boj2667 {
         Collections.sort(result);
 
         System.out.println(result.size());
-        for (int i=0; i<result.size(); i++){
+        for (int i = 0; i < result.size(); i++) {
             System.out.println(result.get(i));
         }
     }
 
     static int bfs(int x, int y) {
         Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{x, y});
+        queue.add(new int[] { x, y });
         visited[y][x] = true;
         int count = 0;
 
@@ -68,7 +67,7 @@ public class boj2667 {
                         && nextY >= 0 && nextY < N
                         && !visited[nextY][nextX] && map[nextY][nextX] == 1) {
                     visited[nextY][nextX] = true;
-                    queue.add(new int[]{nextX, nextY});
+                    queue.add(new int[] { nextX, nextY });
                 }
             }
             count++;

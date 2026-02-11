@@ -1,4 +1,4 @@
-package DFS.BFS;
+package BFS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,13 +16,13 @@ public class boj16953 {
 
         start = Long.parseLong(st.nextToken());
         end = Long.parseLong(st.nextToken());
-        
+
         System.out.println(bfs(start, end));
     }
 
     static int bfs(long start, long end) {
         Queue<long[]> queue = new LinkedList<>();
-        queue.add(new long []{start, 1});
+        queue.add(new long[] { start, 1 });
 
         while (!queue.isEmpty()) {
             long[] now = queue.poll();
@@ -34,11 +34,11 @@ public class boj16953 {
             }
 
             if (cur * 2 <= end) {
-                queue.add(new long[]{cur * 2, count + 1});
+                queue.add(new long[] { cur * 2, count + 1 });
             }
 
             if (cur * 10 + 1 <= end) {
-                queue.add(new long[]{cur * 10 + 1, count + 1});
+                queue.add(new long[] { cur * 10 + 1, count + 1 });
             }
         }
         return -1;

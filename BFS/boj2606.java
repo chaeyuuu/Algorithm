@@ -1,4 +1,4 @@
-package DFS.BFS;
+package BFS;
 
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class boj2606 {
- 
+
     static ArrayList<Integer>[] graph;
     static boolean[] dfsVisited;
     static int count = 0;
@@ -31,25 +31,24 @@ public class boj2606 {
             graph[v].add(u);
         }
 
-        for(int i=1; i<=computerNum; i++){
+        for (int i = 1; i <= computerNum; i++) {
             Collections.sort(graph[i]);
         }
 
-        dfsVisited = new boolean[computerNum+1];
+        dfsVisited = new boolean[computerNum + 1];
         dfs(1);
 
-        System.out.println(count-1);
+        System.out.println(count - 1);
     }
 
-    static void dfs(int computer){
+    static void dfs(int computer) {
         dfsVisited[computer] = true;
-        count +=1;
+        count += 1;
 
-        for (int next: graph[computer]){
-            if(!dfsVisited[next]){
+        for (int next : graph[computer]) {
+            if (!dfsVisited[next]) {
                 dfs(next);
             }
         }
     }
 }
-    
