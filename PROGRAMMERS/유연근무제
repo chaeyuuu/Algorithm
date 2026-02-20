@@ -1,0 +1,43 @@
+class Solution {
+    public int solution(int[] schedules, int[][] timelogs, int startday) {
+        int answer = 0;
+        // schdule - 출근 희망 시각
+        // timelogs - 출근한 시간
+        // startday - 이벤트 시작 요일
+        
+        // 토, 일 제외
+        
+        for(int i=0; i<schedules.length;i++){
+            // 700 + 10 = 710
+            // 855 + 10 = 865 = 905
+            // 850 + 10 = 860 = 900
+            // 1150 + 10 = 1160 = 1200
+
+            int late = schedules[i] + 10;
+            // System.out.println(schedules[i] % 100);
+            
+            if(late % 100 >= 60) late += 40;
+            
+            // System.out.println(late);
+            
+            int currentDay = startday;
+            boolean isSuccess = true;
+
+            for(int j=0;j<7;j++){
+                if (currentDay <= 5){
+                      if (timelogs[i][j] > late){
+                      isSuccess = false;
+                      break;
+                    }                    
+                }
+
+                currentDay++;
+                if (currentDay > 7) currentDay = 1;
+            }
+            
+            if (isSuccess) answer+=1; 
+        }
+        
+        return answer;
+    }
+}
