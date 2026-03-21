@@ -12,56 +12,50 @@ public class boj1406 {
         // 삭제로 인해 커서는 한 칸 왼쪽으로 이동한 것처럼 나타나지만, 실제로 커서의 오른쪽에 있던 문자는 그대로임
         // P $: $라는 문자를 커서 왼쪽에 추가함
 
-        // 포인터 가르치는거 하나
-
-        // abcd
-        // abcdyx
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+        Stack<Character> left = new Stack<>();
+        Stack<Character> right = new Stack<>();
+
         String input = br.readLine();
-        ArrayList<Character> arr = new ArrayList<>();
 
         for (int i = 0; i < input.length(); i++) {
-            arr.add(input.charAt(i));
+            left.add(input.charAt(i));
         }
 
         int N = Integer.parseInt(br.readLine());
-        int pointer = arr.size();
 
         for (int j = 0; j < N; j++) {
-            // P 일때만 하나 두 추가로
             StringTokenizer st = new StringTokenizer(br.readLine());
-
             char command = st.nextToken().charAt(0);
+
             if (command == 'P') {
                 char data = st.nextToken().charAt(0);
-                arr.add(pointer, data);
-
-                if (pointer != arr.size())
-                    pointer += 1;
-
+                left.push(data);
             } else if (command == 'L') {
-                if (pointer != 0)
-                    pointer -= 1;
-
+                if (left.size() != 0)
+                    right.push(left.pop());
             } else if (command == 'D') {
-                if (pointer != arr.size())
-                    pointer += 1;
-
+                if (right.size() != 0)
+                    left.push(right.pop());
             } else if (command == 'B') {
-                // 커서 왼쪽에 있는 문제 삭제
-                // 커서 한 칸 왼쪽 이동
-                if (pointer != 0) {
-                    arr.remove(pointer - 1);
-                    pointer -= 1;
+                if (left.size() != 0) {
+                    left.pop();
                 }
             }
         }
 
-        for (int i = 0; i < arr.size(); i++) {
-            System.out.print(arr.get(i) + "");
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < left.size(); i++) {
+            sb.append(left.get(i));
         }
+
+        for (int i = right.size() - 1; i >= 0; i--) {
+            sb.append(right.get(i));
+        }
+
+        System.out.println(sb.toString());
 
     }
 }
