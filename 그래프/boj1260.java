@@ -1,85 +1,68 @@
 package 그래프;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
+import java.io.*;
 
 public class boj1260 {
-
-    static ArrayList<Integer>[] graph;
-    static boolean[] dfsVisited;
-    static boolean[] bfsVisited;
-
-    static StringBuilder dfsBr = new StringBuilder();
-    static StringBuilder bfsBr = new StringBuilder();
+    static int[][] graph; // 인접행렬
+    static boolean[] visited; // 방문 체크 배열
+    static int N, M, V;
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader((new InputStreamReader(System.in)));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
-        int V = Integer.parseInt(st.nextToken());
+        N = Integer.parseInt(st.nextToken()); // 정점의 개수
+        M = Integer.parseInt(st.nextToken()); // 간선의 개수
+        V = Integer.parseInt(st.nextToken()); // 탐색 시작할 정점의 번호
+        graph = new int[N + 1][N + 1];
 
-        graph = new ArrayList[N + 1];
-        for (int i = 1; i <= N; i++) {
-            // 정점 i에 연결된 다른 정점들 저장
-            graph[i] = new ArrayList<>();
-        }
-
+        // DFS - 깊이 우선 (재귀, stack)
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
-            int u = Integer.parseInt(st.nextToken());
-            int v = Integer.parseInt(st.nextToken());
-
-            graph[u].add(v);
-            graph[v].add(u);
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            graph[a][b] = graph[b][a] = 1;
         }
 
-        for (int i = 1; i <= N; i++) {
-            Collections.sort(graph[i]);
-        }
-
-        dfsVisited = new boolean[N + 1];
+        visited = new boolean[N + 1];
         dfs(V);
 
-        bfsVisited = new boolean[N + 1];
-        bfs(V);
+        System.out.println();
 
-        System.out.println(dfsBr);
-        System.out.println(bfsBr);
+        visited = new boolean[N + 1];
+        bfs(V);
     }
 
-    // 재귀
-    static void dfs(int node) {
-        dfsVisited[node] = true;
-        dfsBr.append(node).append(" ");
+    static void dfs(int start) {
+        // 재귀
+        visited[start] = true;
+        System.out.print(start + " ");
 
-        for (int next : graph[node]) {
-            // 방문하지 않았으면
-            if (!dfsVisited[next]) {
-                dfs(next);
+        for (int i = 1; i < N + 1; i++) {
+            if (visited[i] == false && graph[start][i] == 1) {
+                // 연결이 되어있고 방문 아직 안 했으면
+                dfs(i);
             }
         }
     }
 
-    // 큐
-    static void bfs(int node) {
+    static void bfs(int start) {
+        // 큐
         Queue<Integer> queue = new LinkedList<>();
-        queue.add(node);
-        bfsVisited[node] = true;
+        queue.add(start);
+        visited[start] = true;
 
         while (!queue.isEmpty()) {
-            int cur = queue.poll();
-            bfsBr.append(cur).append(" ");
+            int now = queue.poll();
+            System.out.print(now + " ");
 
-            for (int next : graph[cur]) {
-                if (!bfsVisited[next]) {
-                    bfsVisited[next] = true;
-                    queue.add(next);
+            for (int i = 1; i < N + 1; i++) {
+                if (visited[i] == false && graph[now][i] == 1) {
+                    queue.add(i);
+                    visited[i] = true;
                 }
             }
         }
     }
+
 }
