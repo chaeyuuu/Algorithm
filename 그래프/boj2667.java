@@ -1,77 +1,73 @@
 package 그래프;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
+import java.io.*;
 
 public class boj2667 {
-
-    static int[][] map;
-    static boolean[][] visited;
-
-    static int[] dirX = { 1, 0, -1, 0 };
-    static int[] dirY = { 0, -1, 0, 1 };
     static int N;
-    static ArrayList<Integer> result;
+    static int[][] graph;
+    static boolean[][] visited = new boolean[N][N];
+
+    static int[] dx = { 1, 0, -1, 0 };
+    static int[] dy = { 0, 1, 0, -1 };
+
+    static int count;
 
     public static void main(String[] args) throws IOException {
+        // 1은 집, 0은 집 없
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         N = Integer.parseInt(br.readLine());
-        map = new int[N + 1][N + 1];
-        visited = new boolean[N + 1][N + 1];
 
-        for (int y = 0; y < N; y++) {
-            String input = br.readLine();
-            for (int x = 0; x < N; x++) {
-                int inputNum = Character.getNumericValue(input.charAt(x));
-                map[y][x] = inputNum;
+        graph = new int[N][N];
+
+        for (int i = 0; i < N; i++) {
+            String line = br.readLine();
+            for (int j = 0; j < N; j++) {
+                // 문자 숫자로 변환
+                graph[i][j] = line.charAt(j) - '0';
             }
+
         }
 
-        result = new ArrayList<>();
+        visited = new boolean[N][N];
 
-        for (int y = 0; y < N; y++) {
-            for (int x = 0; x < N; x++) {
-                if (map[y][x] == 1 && !visited[y][x]) {
-                    result.add(bfs(x, y));
+        // (0,0)에서 시작
+        // dx, dy 방향으로 탐색 시작
+        ArrayList<Integer> result = new ArrayList<>();
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (visited[i][j] == false & graph[i][j] == 1) {
+                    count = 0;
+                    dfs(i, j);
+                    result.add(count);
                 }
             }
+
         }
 
+        // 정렬
         Collections.sort(result);
 
         System.out.println(result.size());
-        for (int i = 0; i < result.size(); i++) {
-            System.out.println(result.get(i));
-        }
+        for (int c : result)
+            System.out.println(c);
     }
 
-    static int bfs(int x, int y) {
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[] { x, y });
-        visited[y][x] = true;
-        int count = 0;
+    static void dfs(int x, int y) {
+        visited[x][y] = true; // 방문한걸로 변경
+        count += 1;
 
-        while (!queue.isEmpty()) {
-            int[] now = queue.poll();
-            int nowX = now[0];
-            int nowY = now[1];
+        for (int i = 0; i < 4; i++) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
 
-            for (int i = 0; i < 4; i++) {
-                int nextX = dirX[i] + nowX;
-                int nextY = dirY[i] + nowY;
-
-                if (nextX >= 0 && nextX < N
-                        && nextY >= 0 && nextY < N
-                        && !visited[nextY][nextX] && map[nextY][nextX] == 1) {
-                    visited[nextY][nextX] = true;
-                    queue.add(new int[] { nextX, nextY });
+            if (nx >= 0 && nx < N && ny >= 0 && ny < N) {
+                if (graph[nx][ny] == 1 && visited[nx][ny] == false) {
+                    dfs(nx, ny);
                 }
             }
-            count++;
         }
-        return count;
+
     }
 }
