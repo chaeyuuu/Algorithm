@@ -3,11 +3,13 @@ package 그래프;
 import java.util.*;
 import java.io.*;
 
+// 최단거리는 bfs
+// 거리가 가까운거부터 순차적으로 탐색해나가니까
+
 public class boj2178 {
 
-    static int[][] graph;
-    static boolean[][] visited;
-
+    static int graph[][];
+    static boolean visited[][];
     static int[] dx = { 1, 0, -1, 0 };
     static int[] dy = { 0, -1, 0, 1 };
 
@@ -28,9 +30,10 @@ public class boj2178 {
             }
         }
 
+        // 세로가 N y
+        // 가로가 M x
         bfs(0, 0, N, M);
         System.out.println(graph[N - 1][M - 1]);
-
     }
 
     static void bfs(int x, int y, int N, int M) {
@@ -40,25 +43,28 @@ public class boj2178 {
 
         while (!queue.isEmpty()) {
             int[] now = queue.poll();
-            int curY = now[0]; // 현재 위치
             int curX = now[1];
+            int curY = now[0];
 
-            if (curY == N - 1 && curX == M - 1) {
+            if (curX == M - 1 && curY == N - 1) {
                 break;
             }
 
             for (int i = 0; i < 4; i++) {
-                int nx = curX + dx[i];
-                int ny = curY + dy[i];
+                int nextX = curX + dx[i];
+                int nextY = curY + dy[i];
 
-                if (nx >= 0 && nx < M && ny >= 0 && ny < N) {
-                    if (visited[ny][nx] == false && graph[ny][nx] == 1) {
-                        graph[ny][nx] = graph[curY][curX] + 1; // 다음 방문을 지금꺼 + 1
-                        visited[ny][nx] = true; // 방문했다고 표시하기
-                        queue.add(new int[] { ny, nx });
+                if (nextX >= 0 && nextX < M && nextY >= 0 && nextY < N) {
+                    if (visited[nextY][nextX] == false && graph[nextY][nextX] == 1) {
+                        graph[nextY][nextX] = graph[curY][curX] + 1;
+                        visited[nextY][nextX] = true;
+                        queue.add(new int[] { nextY, nextX });
                     }
                 }
             }
+
         }
+
     }
+
 }
