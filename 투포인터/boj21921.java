@@ -1,3 +1,5 @@
+package 투포인터;
+
 import java.io.*;
 import java.util.*;
 
