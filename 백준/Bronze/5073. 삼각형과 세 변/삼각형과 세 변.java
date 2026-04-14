@@ -6,60 +6,31 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
+        // 삼각형 조건이 머엿더더라
+        // 가장 긴 변의 길이 > 나머지 두 변의 길이의 합
         while (true) {
-            st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-            int c = Integer.parseInt(st.nextToken());
+            int[] arr = new int[3];
 
-            if (a == 0 && b == 0 && c == 0) {
+            st = new StringTokenizer(br.readLine());
+            arr[0] = Integer.parseInt(st.nextToken());
+            arr[1] = Integer.parseInt(st.nextToken());
+            arr[2] = Integer.parseInt(st.nextToken());
+
+            if (arr[0] == 0 && arr[1] == 0 && arr[2] == 0) {
                 break;
             }
 
-            int max = 0;
-            if (a >= b) {
-                max = a;
-            } else {
-                max = b;
-            }
+            Arrays.sort(arr);
 
-            if (max <= c) {
-                max = c;
-            }
-
-            if (max == c) {
-                if (c >= a + b) {
-                    System.out.println("Invalid");
-                    continue;
-                }
-
-            } else if (max == b) {
-                if (b >= a + c) {
-                    System.out.println("Invalid");
-                    continue;
-                }
-            } else if (max == a) {
-                if (a >= b + c) {
-                    System.out.println("Invalid");
-                    continue;
-                }
-            }
-
-            if (a == b && b == c && a == c) {
+            if (arr[2] >= arr[0] + arr[1]) {
+                System.out.println("Invalid");
+            } else if (arr[0] == arr[1] && arr[1] == arr[2]) {
                 System.out.println("Equilateral");
-            }
-
-            if ((a != b && b != c && a != c)) {
+            } else if (arr[0] == arr[1] || arr[1] == arr[2] || arr[0] == arr[2]) {
+                System.out.println("Isosceles");
+            } else {
                 System.out.println("Scalene");
             }
-
-            if ((b == c && b != a && c != a) ||
-                    (b == a && b != c && a != c) ||
-                    (a == c && a != b && b != c)) {
-                System.out.println("Isosceles");
-
-            }
-
         }
     }
 
