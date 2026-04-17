@@ -1,27 +1,30 @@
 import java.util.*;
+import java.io.*;
 
 class Solution {
     public String solution(String[] participant, String[] completion) {
         String answer = "";
-        HashMap<String, Integer> people = new HashMap<>();
         
+        // participant에는 있는데 completion에는 없는 사람
+        HashMap<String, Integer> map = new HashMap<>();
         for(int i=0; i<participant.length; i++){
-            people.put(participant[i], people.getOrDefault(participant[i], 0)+1);
+            map.put(participant[i], map.getOrDefault(participant[i], 0)+1);
         }
+   
         
-        for(int i=0; i<completion.length;i++){
-            if(people.containsKey(completion[i])){
-                // 포함하고 있으면 값 하나 빼기
-                people.put(completion[i], people.get(completion[i])-1);
-                
+        for(String comple : completion){
+            // completion 돌면서 hashmap에 있는지 확인
+            if(map.containsKey(comple)){
+                map.put(comple, map.get(comple)-1);
             }
         }
         
-        for(String person : people.keySet()){
-            if(people.get(person) != 0)
-                answer = person;
+        for(String key: map.keySet()){
+            if(map.get(key) != 0){
+                answer = key;
+            }
         }
         
-        return answer;
+    return answer;
     }
 }
