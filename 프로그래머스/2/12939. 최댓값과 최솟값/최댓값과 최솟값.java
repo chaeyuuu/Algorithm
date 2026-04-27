@@ -1,23 +1,17 @@
-import java.util.*;
-
 class Solution {
     public String solution(String s) {
         String answer = "";
+        String[] numbers = s.split(" ");
         
-        String[] words = s.split(" ");
-        // 정수로 변환
-        int[] w = new int[words.length];
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
         
-        for(int i=0; i<words.length;i++){
-            w[i] = Integer.parseInt(words[i]);
+        for(String numStr : numbers){
+            int num = Integer.parseInt(numStr);
+            if(num >= max) max = num;
+            if(num <= min) min = num;
         }
         
-        Arrays.sort(w);
-        
-        // 최소값 최댓값
-        int max = w[words.length-1];
-        int min = w[0];
-    
         answer = min + " " + max;
         
         return answer;
