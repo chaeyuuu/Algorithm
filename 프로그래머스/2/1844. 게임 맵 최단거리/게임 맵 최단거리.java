@@ -2,53 +2,54 @@ import java.util.*;
 
 class Solution {
     
+    int[] dx = {1,0,-1,0};
+    int[] dy = {0,-1,0,1};
     boolean[][] visited;
-    int dx[] = {1,0,-1,0};
-    int dy[] = {0,-1,0,1};
-    int height;
-    int width;
+    int n, m;
     
     public int solution(int[][] maps) {
-        int answer = 0;
+        // 0인 곳은 못감
+        // 1인 곳은 감
+        // 만약에 n,n 의 값이 끝까지 1? 이면 최종적으로 -1 return
         
-        height = maps.length;
-        width = maps[0].length;
-        visited = new boolean[height][width];
-
+        n = maps.length;
+        m = maps[0].length;
+        visited = new boolean[n][m];
+        
         bfs(0,0, maps);
         
-        int dest = maps[height-1][width-1];
-        
-        if(dest == 1){
+        if(maps[n-1][m-1] == 1){
             return -1;
+        } else {
+            return maps[n-1][m-1];
         }
-
-        return dest;
+        
     }
     
     public void bfs(int y, int x, int[][] maps){
         Queue<int[]> queue = new LinkedList<>();
-        visited[y][x] = true;
         queue.add(new int[]{y,x});
+        visited[y][x] = true;
         
         while(!queue.isEmpty()){
             int[] now = queue.poll();
-            int curX = now[1];
             int curY = now[0];
+            int curX = now[1];
             
             for(int i=0; i<4; i++){
-                int nx = curX + dx[i];
-                int ny = curY + dy[i];
+                int nextX = curX + dx[i];
+                int nextY = curY + dy[i];
                 
-                if(nx>=0 && ny>=0 && nx<width && ny<height){
-                    if(!visited[ny][nx] && maps[ny][nx]==1){
-                        visited[ny][nx] = true;
-                        queue.add(new int[]{ny, nx});
-                        maps[ny][nx] = maps[curY][curX] + 1;
+                if(nextX >= 0 && nextX < m && nextY < n && nextY >= 0){
+                    if(maps[nextY][nextX] == 1 && !visited[nextY][nextX]){
+                        visited[nextY][nextX] = true;
+                        queue.add(new int[]{nextY, nextX});
+                        maps[nextY][nextX] = maps[curY][curX] + 1;
                     }
                 }
             }
             
         }
     }
+    
 }
