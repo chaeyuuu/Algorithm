@@ -3,28 +3,37 @@ import java.io.*;
 
 class Solution {
     public String solution(String s, String skip, int index) {
-        StringBuilder answer = new StringBuilder();
+        String answer = "";
         
-        // a~z 까지 담은 배열에서
-        // skip에 들어있는거 삭제
+        HashSet<Character> skipSet = new HashSet<>();
+        for(int i=0; i<skip.length(); i++){
+            skipSet.add(skip.charAt(i));
+        }
         
-        List<Character> list = new ArrayList<>();
-        for (char i = 'a'; i <= 'z'; i++) {
-            if(!skip.contains(String.valueOf(i))){
-                list.add(i);
+        StringBuilder sb = new StringBuilder();
+        
+        for(int i=0; i<s.length(); i++){
+            int charIndex = s.charAt(i) - 'a';
+            int shiftCount = 0;
+            
+            while(shiftCount < index){
+                charIndex = (charIndex+1)% 26;
+                
+                char nextChar = (char) (charIndex + 'a');
+                
+                if(skipSet.contains(nextChar)){
+                    continue;
+                }
+                
+                shiftCount++;
+                
             }
-        }
             
-        // s에서 앞 글자부터 하나씩 index 만큼 더하기
-        for(int i=0; i<s.length();i++){
-            char cur = s.charAt(i);
-            int currIdx = list.indexOf(cur);
+            sb.append((char)(charIndex +'a'));
             
-            int nextIdx = (currIdx + index) % list.size();
-            
-            answer.append(list.get(nextIdx));
         }
         
-        return answer.toString();
+        
+        return sb.toString();
     }
 }
